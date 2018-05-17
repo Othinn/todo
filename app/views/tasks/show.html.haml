@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Task name:
+  = @task.task_name
+%p
+  %b Task progress:
+  = @task.task_progress
+%p
+  %b Belongs to:
+  = @task.belongs_to
+%p
+  %b Priority:
+  = @task.priority
+%p
+  %b Deadline:
+  = @task.deadline
+
+= link_to 'Edit', edit_task_path(@task)
+\|
+= link_to 'Back', tasks_path
