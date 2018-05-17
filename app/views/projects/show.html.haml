@@ -5,10 +5,8 @@
   = @project.project_name
 %p
   %b Completed:
-  = @project.completed
-%p
-  %b Belongs to:
-  = @project.belongs_to
+  = @project.project_status
+
 
 = link_to 'Edit', edit_project_path(@project)
 \|

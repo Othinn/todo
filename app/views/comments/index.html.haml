@@ -13,7 +13,6 @@
   %tbody
     - @comments.each do |comment|
       %tr
-        %td= comment.belongs_to
         %td= comment.content
         %td= comment.img_url
         %td= link_to 'Show', comment

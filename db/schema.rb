@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_17_163348) do
+ActiveRecord::Schema.define(version: 2018_05_17_164300) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "task_id"
     t.string "content"
-    t.string "img_url"
+    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["task_id"], name: "index_comments_on_task_id"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_163348) do
 
   create_table "projects", force: :cascade do |t|
     t.string "project_name"
-    t.boolean "completed"
+    t.boolean "project_status", default: false
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2018_05_17_163348) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "task_name"
-    t.boolean "task_progress"
+    t.boolean "task_status", default: false
     t.integer "project_id"
     t.integer "priority"
     t.datetime "deadline"
@@ -54,8 +54,10 @@ ActiveRecord::Schema.define(version: 2018_05_17_163348) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "username"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
 end

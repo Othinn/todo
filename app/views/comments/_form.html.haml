@@ -6,14 +6,13 @@
         - @comment.errors.full_messages.each do |message|
           %li= message
 
-  .field
-    = f.label :belongs_to
-    = f.text_field :belongs_to
+
   .field
     = f.label :content
     = f.text_field :content
   .field
-    = f.label :img_url
-    = f.text_field :img_url
+    = f.label :image
+    = f.file_field :image
   .actions
     = f.submit 'Save'
+

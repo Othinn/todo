@@ -5,17 +5,15 @@
     %tr
       %th Project name
       %th Completed
-      %th Belongs to
       %th
       %th
       %th
 
   %tbody
-    - @projects.each do |project|
+    - @user_projects.each do |project|
       %tr
         %td= project.project_name
-        %td= project.completed
-        %td= project.belongs_to
+        %td= project.project_status
         %td= link_to 'Show', project
         %td= link_to 'Edit', edit_project_path(project)
         %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,15 +1,20 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :user_projects, only: :index
+  before_action :authenticate_user!
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    if @project.not_complete?
+      @project = Project.includes(:tasks).find(params[:id])
+    end
   end
 
   # GET /projects/new
@@ -25,6 +30,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user_id = current_user.id
 
     respond_to do |format|
       if @project.save
@@ -59,6 +65,19 @@ class ProjectsController < ApplicationController
       format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def status_change
+    if @project.completed?
+      @project.not_completed!
+    elsif @project.not_completed?
+      @project.completed!
+
+    end
+  end
+
+  def user_projects
+    @user_projects = Project.user_projects(current_user).active_project
   end
 
   private
