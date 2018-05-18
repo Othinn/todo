@@ -1,0 +1,17 @@
+%p
+  %b Task name:
+  = task.task_name
+%p
+  %b Task progress:
+  = task.task_status
+
+%p
+  %b Priority:
+  = task.priority
+%p
+  %b Deadline:
+  = task.deadline
+
+= link_to 'Edit', edit_project_task_path(@project, task.id)
+\|
+= link_to 'Back', @project

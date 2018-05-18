@@ -14,22 +14,25 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.new
   end
 
   # GET /tasks/1/edit
   def edit
+    @project = Project.find(params[:project_id])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    @project = Project.find(params[:project_id])
+    @task = @project.tasks.new(task_params)
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to @project, notice: 'Task was successfully created.' }
+        format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -69,6 +72,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:task_name, :task_progress, :belongs_to, :priority, :deadline)
+      params.require(:task).permit(:task_name, :task_status, :priority, :deadline, :project_id)
     end
 end

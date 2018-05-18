@@ -6,8 +6,10 @@ class Project < ApplicationRecord
 
   scope :user_projects, ->(user) { where('user_id = ?', user.id) }
   scope :active_project, -> { where(project_status: false)}
-  
+
   def self.recent_created
     order('created_at DESC')
   end
+
+
 end

@@ -7,6 +7,11 @@
   %b Completed:
   = @project.project_status
 
+= link_to 'New task', new_project_task_path(@project.id)
+
+
+= render @tasks
+
 
 = link_to 'Edit', edit_project_path(@project)
 \|

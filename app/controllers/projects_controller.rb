@@ -12,9 +12,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    if @project.not_complete?
-      @project = Project.includes(:tasks).find(params[:id])
-    end
+    @tasks = @project.tasks.order_by_deadline
   end
 
   # GET /projects/new
@@ -77,7 +75,7 @@ class ProjectsController < ApplicationController
   end
 
   def user_projects
-    @user_projects = Project.user_projects(current_user).active_project
+    @user_projects = Project.user_projects(current_user).active_project.recent_created
   end
 
   private
