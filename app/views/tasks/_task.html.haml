@@ -1,17 +1,30 @@
-%p
-  %b Task name:
-  = task.task_name
-%p
-  %b Task progress:
-  = task.task_status
 
-%p
-  %b Priority:
-  = task.priority
-%p
-  %b Deadline:
-  = task.deadline
+%table
+  %thead
+    %tr
+      %th Task name
+      %th Task progress
+      %th Priority
+      %th Deadline
+      %th
+      %th
+      %th
 
-= link_to 'Edit', edit_project_task_path(@project, task.id)
-\|
-= link_to 'Back', @project
+  %tbody
+    - @tasks.each do |task|
+      %tr
+        %td= task.task_name
+        -if task.not_complete?
+          %td= link_to '<i class="fas fa-times-circle"></i>'.html_safe, status_change_task_path(task)
+        -else
+          %td= link_to '<i class="fas fa-check-circle"></i>'.html_safe, status_change_task_path(task)
+        %td= task.priority
+        - if task.deadline.past?
+          %td Deadline time has passed
+        - else
+          %td= time_ago_in_words(task.deadline)
+        %td= link_to 'Comments', project_task_path(@project, task.id)
+        %td= link_to 'Edit',  edit_project_task_path(@project, task.id)
+        %td= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br

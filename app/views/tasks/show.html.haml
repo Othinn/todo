@@ -1,12 +1,8 @@
 %p#notice= notice
 
 %p
-  %b Task name:
-  = @task.task_name
+  %h1= @task.task_name
 %p
-  %b Task progress:
-  = @task.task_status
-
 %p
   %b Priority:
   = @task.priority
@@ -14,6 +10,10 @@
   %b Deadline:
   = @task.deadline
 
-= link_to 'Edit', edit_project_task_path(@task)
-\|
-= link_to 'Back', @project
+= link_to 'Back', @task.project
+
+
+
+= render @task_comments
+
+=link_to 'New comment', new_task_comment_url(@task, @task.comments.new)

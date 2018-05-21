@@ -9,9 +9,7 @@
   .field
     = f.label :task_name
     = f.text_field :task_name
-  .field
-    = f.label :task_status
-    = f.check_box :task_status
+
   .field
     = f.label :priority
     = f.select :priority, Task.priorities.keys

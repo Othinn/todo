@@ -1,0 +1,9 @@
+
+-if comment.image.present?
+  %p
+    %b= image_tag(comment.image_url.to_s)
+-if comment.content.present?
+  %p
+    %b Comment
+    = comment.content
+= link_to 'Delete comment', task_comment_path( @task.id, comment), method: :delete, data: {confirm: 'Are you sure?'}

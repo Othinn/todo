@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
-  resources :comments
-
   resources :projects do
+    member do
+      get :status_change
+    end
     resources :tasks
   end
+  
+  resources :tasks do
+    member do
+      get :status_change
+    end
+    resources :comments
+end
   root to: 'home#index'
   devise_for :users
 

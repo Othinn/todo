@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 2018_05_17_164300) do
 
   create_table "projects", force: :cascade do |t|
     t.string "project_name"
-    t.boolean "project_status", default: false
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

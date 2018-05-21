@@ -1,12 +1,11 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :user_projects, only: :index
   before_action :authenticate_user!
 
   # GET /projects
   # GET /projects.json
   def index
-
+    @users_projects = Project.includes(:tasks).where(user_id: current_user)
   end
 
   # GET /projects/1
@@ -21,8 +20,7 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /projects
   # POST /projects.json
@@ -65,20 +63,8 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def status_change
-    if @project.completed?
-      @project.not_completed!
-    elsif @project.not_completed?
-      @project.completed!
-
-    end
-  end
-
-  def user_projects
-    @user_projects = Project.user_projects(current_user).active_project.recent_created
-  end
-
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
@@ -86,6 +72,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:project_name, :completed, :belongs_to)
+      params.require(:project).permit(:project_name)
     end
 end
+

@@ -1,18 +1,12 @@
 %p#notice= notice
 
-%p
-  %b Project name:
+%h2
   = @project.project_name
-%p
-  %b Completed:
-  = @project.project_status
-
 = link_to 'New task', new_project_task_path(@project.id)
 
 
-= render @tasks
+
+= render 'tasks/task'
 
 
-= link_to 'Edit', edit_project_path(@project)
-\|
 = link_to 'Back', projects_path

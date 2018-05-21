@@ -1,19 +1,26 @@
-%h1 Listing projects
+%h1 Projects
 
 %table
   %thead
     %tr
       %th Project name
-      %th Completed
-      %th
+      %th Status
+      %th Tasks completed
       %th
       %th
 
   %tbody
-    - @user_projects.each do |project|
+    - @users_projects.each do |project|
       %tr
         %td= project.project_name
-        %td= project.project_status
+        -if project.complete?
+          %td Complete
+        -else
+          %td Not completed
+        %td
+          %a= project.completed_tasks_number
+          \/
+          %a= project.all_task_number
         %td= link_to 'Show', project
         %td= link_to 'Edit', edit_project_path(project)
         %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
@@ -21,3 +28,4 @@
 %br
 
 = link_to 'New Project', new_project_path
+
